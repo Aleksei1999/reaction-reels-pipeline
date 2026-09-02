@@ -3,12 +3,26 @@
 FFmpeg + Whisper пайплайн для монтажа вертикальных reaction-рилсов (мото/авто-контент).
 Каждый рил = **hook (2-3с чёрно-белый) → part1 (реакция на bg с лицом в круге + word-level субтитрами) → part2 (talking-head фуллскрин + субтитры + bg-cutaway вставки) → grunge-переходы на швах**.
 
+## Быстрый старт
+
+```bash
+bash scripts/setup.sh              # ffmpeg-full + venv с whisper + grunge-переход
+bash scripts/new_reaction.sh 01    # создаст ~/Desktop/монтаж/reactions/reaction-01
+```
+
 ## Что потребуется
 
-- **ffmpeg** (`brew install ffmpeg` — с libx264, freetype, fontconfig, libass)
-- **Python 3.10+** + `pip install -U openai-whisper yt-dlp`
-- **Шрифт** `Gilroy ExtraBold` установить в систему (`~/Library/Fonts/` на macOS). Если нет — заменить в `templates/style_part1.ass` / `style_part2.ass` на любой heavy sans-serif (Impact, Anton, Montserrat Black и т.п.)
-- **Grunge-переход mp4** — 3-5 сек чёрный overlay с плёночными шумами. Пример: [Vertical Vintage Grunge Transitions](https://www.google.com/search?q=vertical+vintage+grunge+transitions+overlay+mp4) — скачать 1 файл, положить путь в `TRANS` в `render.sh`.
+- **ffmpeg с libass.** Homebrew разделил формулу: обычный `ffmpeg` идёт **без** libass/drawtext.
+  Нужен `brew install ffmpeg-full` + в `~/.zshrc`:
+  `export PATH="/opt/homebrew/opt/ffmpeg-full/bin:$PATH"`.
+  Проверка: `ffmpeg -filters | grep " ass "` должно что-то вернуть.
+- **Python 3.12 venv** с `openai-whisper` и `yt-dlp` (ставит `scripts/setup.sh` через `uv`).
+  Дальше во всех командах вместо `python3` — `.venv/bin/python`.
+- **Шрифт** `Gilroy ExtraBold` в `~/Library/Fonts/`. Если нет — заменить в `templates/style_part1.ass` / `style_part2.ass` на любой heavy sans-serif (Impact, Anton, Montserrat Black).
+- **Grunge-переход** — генерируется процедурно: `bash scripts/make_grunge.sh` → `assets/grunge_trans.mov`
+  (RGBA, зерно + царапины + вспышка). Стоковый футаж не нужен, но если есть свой — положи путь в `TRANS`.
+
+Все пути в скриптах параметризованы: `FFMPEG`, `FFPROBE`, `TRANS`, `REPO`, `REACTIONS_ROOT`.
 
 ## Структура рабочей папки
 

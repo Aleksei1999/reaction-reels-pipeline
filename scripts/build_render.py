@@ -36,8 +36,11 @@ def build_render_sh(n, hook_react_ss, hook_bg_ss, hook_dur, talk_dur, cutaway_st
     script = f'''#!/bin/bash
 set -e
 cd "$(dirname "$0")/.."
+REPO="${{REPO:-$HOME/reaction-reels-pipeline}}"
 
-TRANS="/Users/aleksejfomenko/Downloads/vertical-vintage-grunge-transitions-overlay-old-retro-film-video.mp4"
+FFMPEG="${{FFMPEG:-ffmpeg}}"
+FFPROBE="${{FFPROBE:-ffprobe}}"
+TRANS="${{TRANS:-$REPO/assets/grunge_trans.mov}}"
 BG_SRC="src/bg.mp4"
 TRANS_DUR=0.5
 TRANS_SRC_SS=3
@@ -46,7 +49,7 @@ HOOK_REACT_SS={hook_react_ss}
 HOOK_BG_SS={hook_bg_ss}
 
 # PART 1: react + bg + subs + face circle
-ffmpeg -y \\
+"$FFMPEG" -y \\
   -i "$BG_SRC" \\
   -i src/person_react.mov \\
   -filter_complex "
@@ -65,7 +68,7 @@ ffmpeg -y \\
   out/part1.mp4
 
 # PART 2: talk + subs + fullscreen bg cutaways (windows: {windows})
-ffmpeg -y \\
+"$FFMPEG" -y \\
   -stream_loop -1 -i "$BG_SRC" \\
   -i src/person_talk.mp4 \\
   -filter_complex "
@@ -80,15 +83,21 @@ ffmpeg -y \\
   -shortest \\
   out/part2_clean.mp4
 
-# Grunge transition
+# Grunge-переход → out/trans.mov (RGBA)
+# Если TRANS уже с альфой (наш assets/grunge_trans.mov) — просто подрезаем.
+# Если это обычный mp4-футаж на чёрном — выбиваем чёрный через colorkey.
 if [ ! -f out/trans.mov ]; then
-  ffmpeg -y -ss "$TRANS_SRC_SS" -t "$TRANS_DUR" -i "$TRANS" \\
-    -filter_complex "[0:v]scale=1080:1920,drawbox=x=0:y=680:w=iw:h=420:color=black:t=fill,fps=30,setsar=1,colorkey=color=0x000000:similarity=0.18:blend=0.05,format=yuva420p[vout]" \\
-    -map "[vout]" -c:v qtrle out/trans.mov
+  if "$FFPROBE" -v error -select_streams v:0 -show_entries stream=pix_fmt -of csv=p=0 "$TRANS" | grep -qE "argb|rgba|yuva"; then
+    "$FFMPEG" -y -t "$TRANS_DUR" -i "$TRANS" -c:v qtrle out/trans.mov
+  else
+    "$FFMPEG" -y -ss "$TRANS_SRC_SS" -t "$TRANS_DUR" -i "$TRANS" \
+      -filter_complex "[0:v]scale=1080:1920,fps=30,setsar=1,colorkey=color=0x000000:similarity=0.18:blend=0.05,format=yuva420p[vout]" \
+      -map "[vout]" -c:v qtrle out/trans.mov
+  fi
 fi
 
 # HOOK: b&w bg + b&w face + hook.ass
-ffmpeg -y \\
+"$FFMPEG" -y \\
   -ss "$HOOK_BG_SS" -t "$HOOK_DUR" -i "$BG_SRC" \\
   -ss "$HOOK_REACT_SS" -t "$HOOK_DUR" -i src/person_react.mov \\
   -filter_complex "
@@ -103,8 +112,8 @@ ffmpeg -y \\
   -t "$HOOK_DUR" out/hook.mp4
 
 # FINAL
-P1_DUR=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 out/part1.mp4)
-HOOK_END=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 out/hook.mp4)
+P1_DUR=$("$FFPROBE" -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 out/part1.mp4)
+HOOK_END=$("$FFPROBE" -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 out/hook.mp4)
 SEAM_H=$HOOK_END
 SEAM_P1=$(echo "$HOOK_END + $P1_DUR" | bc -l)
 
@@ -112,7 +121,7 @@ sr() {{ echo "$(echo "$1 - $TRANS_DUR/2" | bc -l) $(echo "$1 + $TRANS_DUR/2" | b
 read S1_S S1_E <<< "$(sr $SEAM_H)"
 read S2_S S2_E <<< "$(sr $SEAM_P1)"
 
-ffmpeg -y \\
+"$FFMPEG" -y \\
   -i out/hook.mp4 -i out/part1.mp4 -i out/part2_clean.mp4 \\
   -i out/trans.mov -i out/trans.mov \\
   -filter_complex "
@@ -146,7 +155,7 @@ REACTIONS = {
 }
 
 for n, c in REACTIONS.items():
-    base = f'/Users/aleksejfomenko/Desktop/монтаж/reaction-{n}'
+    base = os.environ.get('REACTIONS_ROOT', os.path.expanduser('~/Desktop/монтаж/reactions')) + f'/reaction-{n}'
     build_hook_ass(c['hook_words'], f'{base}/audio/hook.ass')
     script = build_render_sh(n, c['hook_react_ss'], c['hook_bg_ss'], c['hook_dur'], c['talk_dur'])
     open(f'{base}/src/render.sh','w').write(script)
