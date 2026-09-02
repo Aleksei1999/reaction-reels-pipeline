@@ -88,11 +88,11 @@ HOOK_BG_SS={hook_bg_ss}
 # Если это обычный mp4-футаж на чёрном — выбиваем чёрный через colorkey.
 if [ ! -f out/trans.mov ]; then
   if "$FFPROBE" -v error -select_streams v:0 -show_entries stream=pix_fmt -of csv=p=0 "$TRANS" | grep -qE "argb|rgba|yuva"; then
-    "$FFMPEG" -y -t "$TRANS_DUR" -i "$TRANS" -c:v qtrle out/trans.mov
+    "$FFMPEG" -y -t "$TRANS_DUR" -i "$TRANS" -c:v png out/trans.mov
   else
     "$FFMPEG" -y -ss "$TRANS_SRC_SS" -t "$TRANS_DUR" -i "$TRANS" \
       -filter_complex "[0:v]scale=1080:1920,fps=30,setsar=1,colorkey=color=0x000000:similarity=0.18:blend=0.05,format=yuva420p[vout]" \
-      -map "[vout]" -c:v qtrle out/trans.mov
+      -map "[vout]" -c:v png out/trans.mov
   fi
 fi
 

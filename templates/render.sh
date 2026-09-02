@@ -16,6 +16,9 @@ FFPROBE="${FFPROBE:-ffprobe}"
 # Готовый RGBA-переход: bash scripts/make_grunge.sh (или свой стоковый mp4)
 TRANS="${TRANS:-$REPO/assets/grunge_trans.mov}"
 BG_SRC="src/bg.mp4"
+# имя финалки берётся из имени папки: reaction-07 → out/reaction7_v1.mp4
+REEL="${REEL:-$(basename "$PWD" | sed -E 's/^reaction-0*//')}"
+OUT_FINAL="${OUT_FINAL:-out/reaction${REEL}_v1.mp4}"
 TRANS_DUR=0.5
 TRANS_SRC_SS=3
 
@@ -56,11 +59,11 @@ TRANS_SRC_SS=3
 # Если это обычный mp4-футаж на чёрном — выбиваем чёрный через colorkey.
 if [ ! -f out/trans.mov ]; then
   if "$FFPROBE" -v error -select_streams v:0 -show_entries stream=pix_fmt -of csv=p=0 "$TRANS" | grep -qE "argb|rgba|yuva"; then
-    "$FFMPEG" -y -t "$TRANS_DUR" -i "$TRANS" -c:v qtrle out/trans.mov
+    "$FFMPEG" -y -t "$TRANS_DUR" -i "$TRANS" -c:v png out/trans.mov
   else
     "$FFMPEG" -y -ss "$TRANS_SRC_SS" -t "$TRANS_DUR" -i "$TRANS" \
       -filter_complex "[0:v]scale=1080:1920,fps=30,setsar=1,colorkey=color=0x000000:similarity=0.18:blend=0.05,format=yuva420p[vout]" \
-      -map "[vout]" -c:v qtrle out/trans.mov
+      -map "[vout]" -c:v png out/trans.mov
   fi
 fi
 
@@ -102,6 +105,6 @@ read S2_S S2_E <<< "$(sr $SEAM_P1)"
   " \
   -map "[vout]" -map "[aout]" \
   -r 30 -c:v libx264 -crf 18 -preset medium -pix_fmt yuv420p -c:a aac -b:a 192k \
-  out/reaction8_v1.mp4
+  "$OUT_FINAL"
 
-echo "DONE reaction8_v1.mp4"
+echo "DONE $OUT_FINAL"

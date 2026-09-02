@@ -27,5 +27,5 @@ mkdir -p "$(dirname "$OUT")"
     [1:v]format=gbrp[wht];
     [wht][mask]alphamerge,format=rgba[vout]
   " \
-  -map "[vout]" -c:v qtrle -t "$DUR" "$OUT"
+  -map "[vout]" -c:v png -t "$DUR" "$OUT"
 echo "OK: $OUT"
