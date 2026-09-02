@@ -1,20 +1,139 @@
 {
- "15": {"react_start": 2.42, "react_end": 35.52, "talk_start": 36.04, "talk_end": 48.66,
-        "hook_src": "react", "hook_abs": 32.88, "hook_dur": 2.70, "hook_bg_ss": 29.0,
-        "hook": [[0.00,0.86,"НУ ВСЁ"],[0.90,2.20,"ОН БЬЁТСЯ"],[2.20,2.70,"БОЛЬНО?"]]},
- "17": {"react_start": 13.72, "react_end": 23.52, "talk_start": 24.12, "talk_end": 35.40,
-        "hook_src": "talk", "hook_abs": 25.68, "hook_dur": 2.50, "hook_bg_ss": 6.0,
-        "hook": [[0.00,1.10,"ПОД 20 БАР"],[1.45,2.35,"В КОЛЕСЕ ФУРЫ"]]},
- "18": {"react_start": 5.16, "react_end": 21.36, "talk_start": 21.32, "talk_end": 46.84,
-        "hook_src": "react", "hook_abs": 15.70, "hook_dur": 2.00, "hook_bg_ss": 9.9,
-        "hook": [[0.30,0.72,"ДЕВОЧКА"],[0.90,1.55,"НУ БЫВАЕТ"]]},
- "19": {"react_start": 0.00, "react_end": 25.38, "talk_start": 25.38, "talk_end": 37.88,
-        "hook_src": "talk", "hook_abs": 28.20, "hook_dur": 2.40, "hook_bg_ss": 24.5,
-        "hook": [[0.38,0.92,"ВСАДИЛСЯ"],[0.92,1.80,"ПРЯМО В ОТБОЙНИК"]]},
- "20": {"react_start": 5.62, "react_end": 30.52, "talk_start": 30.82, "talk_end": 48.56,
-        "hook_src": "react", "hook_abs": 27.28, "hook_dur": 2.10, "hook_bg_ss": 20.7,
-        "hook": [[0.00,0.30,"БЛИН"],[0.32,1.20,"ОЧЕНЬ ЖЁСТКО"]]},
- "21": {"react_start": 0.00, "react_end": 18.46, "talk_start": 18.46, "talk_end": 25.58,
-        "hook_src": "react", "hook_abs": 10.40, "hook_dur": 1.95, "hook_bg_ss": 9.4,
-        "hook": [[0.12,0.45,"ЖИЗНЬ"],[0.45,1.40,"НИЧЕМУ НЕ НАУЧИЛА"]]}
+ "15": {
+  "react_start": 2.42,
+  "react_end": 35.52,
+  "talk_start": 36.04,
+  "talk_end": 48.66,
+  "hook_src": "react",
+  "hook_abs": 32.88,
+  "hook_dur": 2.7,
+  "hook_bg_ss": 25.8,
+  "hook": [
+   [
+    0.0,
+    0.86,
+    "НУ ВСЁ"
+   ],
+   [
+    0.9,
+    2.2,
+    "ОН БЬЁТСЯ"
+   ],
+   [
+    2.2,
+    2.7,
+    "БОЛЬНО?"
+   ]
+  ]
+ },
+ "17": {
+  "react_start": 13.72,
+  "react_end": 23.52,
+  "talk_start": 24.12,
+  "talk_end": 35.4,
+  "hook_src": "talk",
+  "hook_abs": 25.68,
+  "hook_dur": 2.5,
+  "hook_bg_ss": 6.0,
+  "hook": [
+   [
+    0.0,
+    1.1,
+    "ПОД 20 БАР"
+   ],
+   [
+    1.45,
+    2.35,
+    "В КОЛЕСЕ ФУРЫ"
+   ]
+  ]
+ },
+ "18": {
+  "react_start": 5.16,
+  "react_end": 21.36,
+  "talk_start": 21.32,
+  "talk_end": 46.84,
+  "hook_src": "react",
+  "hook_abs": 15.7,
+  "hook_dur": 2.0,
+  "hook_bg_ss": 9.9,
+  "hook": [
+   [
+    0.3,
+    0.72,
+    "ДЕВОЧКА"
+   ],
+   [
+    0.9,
+    1.55,
+    "НУ БЫВАЕТ"
+   ]
+  ]
+ },
+ "19": {
+  "react_start": 0.0,
+  "react_end": 33.5,
+  "talk_start": 33.56,
+  "talk_end": 37.88,
+  "hook_src": "react",
+  "hook_abs": 28.58,
+  "hook_dur": 2.4,
+  "hook_bg_ss": 28.5,
+  "hook": [
+   [
+    0.0,
+    0.55,
+    "ВСАДИЛСЯ"
+   ],
+   [
+    0.55,
+    1.45,
+    "ПРЯМО В ОТБОЙНИК"
+   ]
+  ]
+ },
+ "20": {
+  "react_start": 5.62,
+  "react_end": 30.52,
+  "talk_start": 30.82,
+  "talk_end": 48.56,
+  "hook_src": "react",
+  "hook_abs": 27.28,
+  "hook_dur": 2.1,
+  "hook_bg_ss": 19.0,
+  "hook": [
+   [
+    0.0,
+    0.3,
+    "БЛИН"
+   ],
+   [
+    0.32,
+    1.2,
+    "ОЧЕНЬ ЖЁСТКО"
+   ]
+  ]
+ },
+ "21": {
+  "react_start": 0.0,
+  "react_end": 18.46,
+  "talk_start": 18.46,
+  "talk_end": 25.58,
+  "hook_src": "react",
+  "hook_abs": 10.4,
+  "hook_dur": 1.95,
+  "hook_bg_ss": 9.4,
+  "hook": [
+   [
+    0.12,
+    0.45,
+    "ЖИЗНЬ"
+   ],
+   [
+    0.45,
+    1.4,
+    "НИЧЕМУ НЕ НАУЧИЛА"
+   ]
+  ]
+ }
 }
