@@ -18,7 +18,7 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Default,Gilroy ExtraBold,120,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,1,0,0,0,100,100,0,0,1,0,0,5,60,60,0,1
+Style: Default,Gilroy ExtraBold,120,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,1,0,0,0,100,100,0,0,1,0,0,__ALIGN__,60,60,__MARGINV__,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -56,7 +56,10 @@ def main():
         ]
         (d / "src/config.env").write_text("\n".join(cfg) + "\n")
 
-        ass = [HOOK_HEADER] + [
+        # если в bg вшит свой титр по центру — уводим хук вниз (hook_align/hook_marginv)
+        header = (HOOK_HEADER.replace("__ALIGN__", str(p.get("hook_align", 5)))
+                             .replace("__MARGINV__", str(p.get("hook_marginv", 0))))
+        ass = [header] + [
             f"Dialogue: 0,{ts(a)},{ts(b)},Default,,0,0,0,,{txt}" for a, b, txt in p["hook"]
         ]
         (d / "audio/hook.ass").write_text("\n".join(ass) + "\n")

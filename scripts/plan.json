@@ -135,5 +135,161 @@
     "НИЧЕМУ НЕ НАУЧИЛА"
    ]
   ]
+ },
+ "33": {
+  "react_start": 11.94,
+  "react_end": 28.78,
+  "talk_start": 36.8,
+  "talk_end": 64.66,
+  "hook_src": "react",
+  "hook_abs": 14.72,
+  "hook_dur": 2.8,
+  "hook_bg_ss": 10.5,
+  "hook": [
+   [
+    0.0,
+    0.6,
+    "МОЛОДЕЦ"
+   ],
+   [
+    0.75,
+    2.6,
+    "НОРМАЛЬНО ОТРАБОТАЛ"
+   ]
+  ]
+ },
+ "34": {
+  "react_start": 5.5,
+  "react_end": 16.3,
+  "talk_start": 16.62,
+  "talk_end": 32.18,
+  "hook_src": "talk",
+  "hook_abs": 27.44,
+  "hook_dur": 1.8,
+  "hook_bg_ss": 4.5,
+  "hook": [
+   [
+    0.18,
+    0.46,
+    "СКОРЕЕ ВСЕГО"
+   ],
+   [
+    0.52,
+    1.35,
+    "СЛОМАЛА НОГУ"
+   ]
+  ]
+ },
+ "35": {
+  "react_start": 1.5,
+  "react_end": 16.6,
+  "talk_start": 17.4,
+  "talk_end": 43.3,
+  "hook_src": "talk",
+  "hook_abs": 41.58,
+  "hook_dur": 1.7,
+  "hook_bg_ss": 4.5,
+  "hook": [
+   [
+    0.0,
+    1.08,
+    "НАДЕЮСЬ"
+   ],
+   [
+    1.08,
+    1.6,
+    "ОН ВЫЖИЛ"
+   ]
+  ]
+ },
+ "36": {
+  "react_start": 4.42,
+  "react_end": 16.42,
+  "talk_start": 16.42,
+  "talk_end": 54.08,
+  "hook_src": "talk",
+  "hook_abs": 46.38,
+  "hook_dur": 2.0,
+  "hook_bg_ss": 7.5,
+  "hook": [
+   [
+    0.52,
+    0.94,
+    "ЭТО БЫЛО"
+   ],
+   [
+    0.94,
+    1.7,
+    "ОЧЕНЬ БЛИЗКО"
+   ]
+  ],
+  "hook_align": 2,
+  "hook_marginv": 400
+ },
+ "37": {
+  "react_start": 4.5,
+  "react_end": 32.1,
+  "talk_start": 32.1,
+  "talk_end": 43.2,
+  "hook_src": "react",
+  "hook_abs": 16.64,
+  "hook_dur": 2.2,
+  "hook_bg_ss": 17.5,
+  "hook": [
+   [
+    0.0,
+    0.72,
+    "Я УВЕРЕН"
+   ],
+   [
+    0.88,
+    1.95,
+    "КИРПИЧЕЙ НАЛОЖИЛ"
+   ]
+  ]
+ },
+ "38": {
+  "react_start": 0.0,
+  "react_end": 17.64,
+  "talk_start": 17.74,
+  "talk_end": 26.76,
+  "hook_src": "react",
+  "hook_abs": 9.78,
+  "hook_dur": 1.6,
+  "hook_bg_ss": 0.5,
+  "hook": [
+   [
+    0.36,
+    0.92,
+    "ЗАЧЕМ НУЖЕН"
+   ],
+   [
+    0.92,
+    1.5,
+    "ШЛЕМ?"
+   ]
+  ]
+ },
+ "39": {
+  "react_start": 4.86,
+  "react_end": 16.76,
+  "talk_start": 17.74,
+  "talk_end": 34.62,
+  "hook_src": "talk",
+  "hook_abs": 17.74,
+  "hook_dur": 1.6,
+  "hook_bg_ss": 8.5,
+  "hook": [
+   [
+    0.0,
+    0.5,
+    "УЧИ"
+   ],
+   [
+    0.5,
+    1.2,
+    "ФИЗИКУ"
+   ]
+  ]
  }
 }
