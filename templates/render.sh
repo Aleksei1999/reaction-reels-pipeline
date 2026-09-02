@@ -6,6 +6,8 @@ cd "$(dirname "$0")/.."
 REPO="${REPO:-$HOME/reaction-reels-pipeline}"
 FFMPEG="${FFMPEG:-ffmpeg}"      # нужен с libass: brew install ffmpeg-full
 FFPROBE="${FFPROBE:-ffprobe}"
+# шрифт берём из репозитория, а не из системы — тогда рендер повторяем на любой машине
+FONTSDIR="${FONTSDIR:-$REPO/fonts}"
 
 # ---- параметры рилса ----
 [ -f src/config.env ] && . src/config.env
@@ -41,7 +43,7 @@ if [ -n "$TALK_CROP_X" ]; then TALK_X="$TALK_CROP_X"; else TALK_X="(iw-1080)/2";
     [0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30[bg];
     [1:v]$CIRCLE_FILTER[circle];
     [bg][circle]overlay=x=$CIRCLE_X:y=$CIRCLE_Y:shortest=1[vid];
-    [vid]ass=audio/subs_words.ass[vout];
+    [vid]ass=f=audio/subs_words.ass:fontsdir=$FONTSDIR[vout];
     [1:a]volume=$VOICE_VOL[voice];
     [0:a]volume=$BG_VOL[music];
     [voice][music]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[aout]
@@ -62,7 +64,7 @@ if [ -n "$CUTAWAYS" ]; then
       [1:v]scale=-1:1920,crop=1080:1920:x=$TALK_X:y=0,setsar=1,fps=30[talk];
       [0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30[bgf];
       [talk][bgf]overlay=enable='$ENABLE'[vmix];
-      [vmix]ass=audio/talk_words.ass[vfinal];
+      [vmix]ass=f=audio/talk_words.ass:fontsdir=$FONTSDIR[vfinal];
       [1:a]volume=$VOICE_VOL[aout]
     " \
     -map "[vfinal]" -map "[aout]" -r 30 -c:v libx264 -crf 18 -preset medium -pix_fmt yuv420p \
@@ -71,7 +73,7 @@ else
   "$FFMPEG" -y -i src/person_talk.mp4 \
     -filter_complex "
       [0:v]scale=-1:1920,crop=1080:1920:x=$TALK_X:y=0,setsar=1,fps=30[talk];
-      [talk]ass=audio/talk_words.ass[vfinal];
+      [talk]ass=f=audio/talk_words.ass:fontsdir=$FONTSDIR[vfinal];
       [0:a]volume=$VOICE_VOL[aout]
     " \
     -map "[vfinal]" -map "[aout]" -r 30 -c:v libx264 -crf 18 -preset medium -pix_fmt yuv420p \
@@ -101,7 +103,7 @@ esac
     [0:v]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,setsar=1,fps=30,hue=s=0,eq=contrast=1.1[bg_bw];
     [1:v]$CIRCLE_FILTER,hue=s=0[circle_bw];
     [bg_bw][circle_bw]overlay=x=$CIRCLE_X:y=$CIRCLE_Y[vid];
-    [vid]ass=audio/hook.ass[vout];
+    [vid]ass=f=audio/hook.ass:fontsdir=$FONTSDIR[vout];
     [1:a]volume=2.0[aout]
   " \
   -map "[vout]" -map "[aout]" -r 30 -c:v libx264 -crf 18 -preset medium -pix_fmt yuv420p \

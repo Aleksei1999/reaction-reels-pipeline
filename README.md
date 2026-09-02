@@ -18,7 +18,8 @@ bash scripts/new_reaction.sh 01    # создаст ~/Desktop/монтаж/react
   Проверка: `ffmpeg -filters | grep " ass "` должно что-то вернуть.
 - **Python 3.12 venv** с `openai-whisper` и `yt-dlp` (ставит `scripts/setup.sh` через `uv`).
   Дальше во всех командах вместо `python3` — `.venv/bin/python`.
-- **Шрифт** `Gilroy ExtraBold` в `~/Library/Fonts/`. Если нет — заменить в `templates/style_part1.ass` / `style_part2.ass` на любой heavy sans-serif (Impact, Anton, Montserrat Black).
+- **Шрифт** `Gilroy ExtraBold` лежит в `fonts/` и подтягивается фильтром `ass` через `fontsdir`,
+  ставить в систему не нужно. Переопределяется переменной `FONTSDIR`.
 - **Grunge-переход** — генерируется процедурно: `bash scripts/make_grunge.sh` → `assets/grunge_trans.mov`
   (RGBA, зерно + царапины + вспышка). Стоковый футаж не нужен, но если есть свой — положи путь в `TRANS`.
 
