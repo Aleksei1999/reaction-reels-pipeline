@@ -41,3 +41,5 @@ venv/
 
 # But KEEP style ASS templates and .gitkeep
 !*.ass
+!fonts/*.otf
+!fonts/*.ttf
