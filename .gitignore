@@ -1,0 +1,43 @@
+# Media outputs
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.wav
+*.mp3
+*.aac
+*.flac
+
+# Images (keep hook_cover.png etc if committed intentionally — override per-file)
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+
+# Whisper models cache
+.cache/
+models/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Editor
+.idea/
+.vscode/
+*.swp
+
+# Local secrets
+*.env
+.env.*
+
+# But KEEP style ASS templates and .gitkeep
+!*.ass
